@@ -3,6 +3,11 @@ board = [[' ', ' ', ' '],
          [' ', ' ', ' ']]
 
 
+def showEmptyBoard():
+    for i in range(3):
+        print("|   |   |   |")
+
+
 def showBoard(board):
     for i in range(3):
         print("|", board[i][0], "|", board[i][1], "|", board[i][2], "|")
@@ -10,7 +15,7 @@ def showBoard(board):
 
 def move(board, playerSymbol, x, y):
     if x > 3 or x < 1 or y > 3 or y < 1:
-        print('wrong cords')
+        print('Wrong coords')
         showBoard(board)
         return False
     else:
@@ -24,9 +29,8 @@ def move(board, playerSymbol, x, y):
             return False
 
 
-
 def playerWin(board, playerSymbol):
-    #проверка на линии по горизонтали
+    # проверка на линии по горизонтали
     for j in range(3):
         winSymbols = 0
         for i in range(3):
@@ -34,7 +38,7 @@ def playerWin(board, playerSymbol):
                 winSymbols += 1
         if winSymbols == 3:
             return True
-    #Проверка на линии по вертикали
+    # Проверка на линии по вертикали
     for j in range(3):
         winSymbols = 0
         for i in range(3):
@@ -42,7 +46,7 @@ def playerWin(board, playerSymbol):
                 winSymbols += 1
         if winSymbols == 3:
             return True
-    #Проверка на линии по диагонали
+    # Проверка на линии по диагонали
 
     winSymbols = 0
     for i, j in zip(range(3), range(3)):
@@ -53,10 +57,12 @@ def playerWin(board, playerSymbol):
 
     winSymbols = 0
     for i in range(3):
-        if board[0+i][2-i] == playerSymbol:
+        if board[0 + i][2 - i] == playerSymbol:
             winSymbols += 1
         if winSymbols == 3:
             return True
+    else:
+        return False
 
 
 def gameOver(board):
@@ -75,6 +81,7 @@ def gameOver(board):
         print('Player 0 - wins')
         return True
 
+
 def game(board):
     movecount = 0
     while True:
@@ -91,7 +98,6 @@ def game(board):
         if gameOver(board) == True:
             print('Game over!')
             return
-
 
 
 
