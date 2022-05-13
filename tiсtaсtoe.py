@@ -3,16 +3,17 @@ board = [[' ', ' ', ' '],
          [' ', ' ', ' ']]
 
 
+#1
 def showEmptyBoard():
     for i in range(3):
         print("|   |   |   |")
 
-
+#2
 def showBoard(board):
     for i in range(3):
         print("|", board[i][0], "|", board[i][1], "|", board[i][2], "|")
 
-
+#3
 def move(board, playerSymbol, x, y):
     if x > 3 or x < 1 or y > 3 or y < 1:
         print('Wrong coords')
@@ -28,7 +29,7 @@ def move(board, playerSymbol, x, y):
             showBoard(board)
             return False
 
-
+#4
 def playerWin(board, playerSymbol):
     # проверка на линии по горизонтали
     for j in range(3):
@@ -64,7 +65,7 @@ def playerWin(board, playerSymbol):
     else:
         return False
 
-
+#5
 def gameOver(board):
     emptySlots = 9
     for x in range(3):
@@ -82,6 +83,7 @@ def gameOver(board):
         return True
 
 
+#6
 def game(board):
     movecount = 0
     while True:
@@ -98,7 +100,6 @@ def game(board):
         if gameOver(board) == True:
             print('Game over!')
             return
-
 
 
 while True:
