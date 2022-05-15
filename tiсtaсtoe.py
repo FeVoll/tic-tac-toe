@@ -34,7 +34,7 @@ def move(board, playerSymbol, x, y):
 
 # 1.4
 def playerWin(board, playerSymbol):
-    # проверка на линии по горизонтали
+
     for j in range(3):
         winSymbols = 0
         for i in range(3):
@@ -42,7 +42,7 @@ def playerWin(board, playerSymbol):
                 winSymbols += 1
         if winSymbols == 3:
             return True
-    # Проверка на линии по вертикали
+
     for j in range(3):
         winSymbols = 0
         for i in range(3):
@@ -50,7 +50,7 @@ def playerWin(board, playerSymbol):
                 winSymbols += 1
         if winSymbols == 3:
             return True
-    # Проверка на линии по диагонали
+
 
     winSymbols = 0
     for i, j in zip(range(3), range(3)):
@@ -94,7 +94,10 @@ def game(board, fileUrl):
         print('Do you want to load a saved game? 1 - yes 2 - no')
         loadChoose = input()
         if loadChoose == '1':
-            board = loadBoard(fileUrl)
+            try:
+                board = loadBoard(fileUrl)
+            except:
+                print('There is no save file, save the game first')
             showBoard(board)
             break
         elif loadChoose == '2':
