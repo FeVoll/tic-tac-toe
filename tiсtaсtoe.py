@@ -2,18 +2,17 @@ board = [[' ', ' ', ' '],
          [' ', ' ', ' '],
          [' ', ' ', ' ']]
 
-
-#1
+#1.1
 def showEmptyBoard():
     for i in range(3):
         print("|   |   |   |")
 
-#2
+#1.2
 def showBoard(board):
     for i in range(3):
         print("|", board[i][0], "|", board[i][1], "|", board[i][2], "|")
 
-#3
+#1.3
 def move(board, playerSymbol, x, y):
     if x > 3 or x < 1 or y > 3 or y < 1:
         print('Wrong coords')
@@ -29,7 +28,8 @@ def move(board, playerSymbol, x, y):
             showBoard(board)
             return False
 
-#4
+
+#1.4
 def playerWin(board, playerSymbol):
     # проверка на линии по горизонтали
     for j in range(3):
@@ -65,7 +65,8 @@ def playerWin(board, playerSymbol):
     else:
         return False
 
-#5
+
+#1.5
 def gameOver(board):
     emptySlots = 9
     for x in range(3):
@@ -82,28 +83,90 @@ def gameOver(board):
         print('Player 0 - wins')
         return True
 
-
-#6
-def game(board):
+#1.6 (+ 2.3)
+def game(board, fileUrl):
     movecount = 0
     while True:
-        print('Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner')
-        coords = input().split()
-        x = int(coords[0])
-        y = int(coords[1])
+        print('Do you want to load saved game? 1 - yes 2 - no')
+        loadChoose = input()
+        if loadChoose == '1':
+            board = loadBoard(fileUrl)
+            break
+        elif loadChoose == '2':
+            break
+    for x in range(3):
+        for y in range(3):
+            if board[x][y] != ' ':
+                movecount += 1
+    while True:
         if movecount % 2 == 0:
-            if move(board, 'X', x, y) == True:
-                movecount += 1
+            print('Round', movecount + 1, '- Player X move.\n'
+                  'Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner '
+                                          'or write "save" to save the game')
+            try:
+                playerInput = input()
+                if playerInput == 'save':
+                    saveBoard(board, fileUrl)
+                    return
+                else:
+                    coords = playerInput.split()
+                    x = int(coords[0])
+                    y = int(coords[1])
+                    if move(board, 'X', x, y) == True:
+                        movecount += 1
+            except:
+                print('Check your input and try again')
+                
         elif movecount % 2 == 1:
-            if move(board, '0', x, y) == True:
-                movecount += 1
+            print('Round', movecount + 1, '- Player 0 move.\n'
+                  'Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner '
+                                          'or write "save" to save the game')
+            try:
+                playerInput = input()
+                if playerInput == 'save':
+                    saveBoard(board, fileUrl)
+                    return
+                else:
+                    coords = playerInput.split()
+                    x = int(coords[0])
+                    y = int(coords[1])
+                    if move(board, '0', x, y) == True:
+                        movecount += 1
+            except:
+                print('Check your input and try again')
         if gameOver(board) == True:
             print('Game over!')
             return
 
+#2.1
+
+def saveBoard(board, fileUrl):
+    f = open(fileUrl, 'w')
+    for x in board:
+        f.write(str(x) + '\n')
+    f.close()
+
+
+#2.2
+def loadBoard(fileUrl):
+    f = open(fileUrl, 'r')
+    board = []
+    board2 = []
+    for line in f:
+        board.append(str(line)[:-1])
+    f.close()
+
+    for x in range(3):
+        board2.append(board[x][1:-1].split(', '))
+        for y in range(3):
+            board2[x][y] = board2[x][y][1:-1]
+
+    return board2
+
+
 
 while True:
-    game(board)
+    game(board, 'save.txt')
     print('Play again? 1 - yes / other - no')
     answer = input()
     if answer != '1':
