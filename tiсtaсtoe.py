@@ -87,7 +87,7 @@ def gameOver(board):
 def game(board, fileUrl):
     movecount = 0
     while True:
-        print('Do you want to load saved game? 1 - yes 2 - no')
+        print('Do you want to load a saved game? 1 - yes 2 - no')
         loadChoose = input()
         if loadChoose == '1':
             board = loadBoard(fileUrl)
