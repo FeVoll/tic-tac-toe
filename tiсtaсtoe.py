@@ -2,17 +2,20 @@ board = [[' ', ' ', ' '],
          [' ', ' ', ' '],
          [' ', ' ', ' ']]
 
-#1.1
+
+# 1.1
 def showEmptyBoard():
     for i in range(3):
         print("|   |   |   |")
 
-#1.2
+
+# 1.2
 def showBoard(board):
     for i in range(3):
         print("|", board[i][0], "|", board[i][1], "|", board[i][2], "|")
 
-#1.3
+
+# 1.3
 def move(board, playerSymbol, x, y):
     if x > 3 or x < 1 or y > 3 or y < 1:
         print('Wrong coords')
@@ -29,7 +32,7 @@ def move(board, playerSymbol, x, y):
             return False
 
 
-#1.4
+# 1.4
 def playerWin(board, playerSymbol):
     # проверка на линии по горизонтали
     for j in range(3):
@@ -66,7 +69,7 @@ def playerWin(board, playerSymbol):
         return False
 
 
-#1.5
+# 1.5
 def gameOver(board):
     emptySlots = 9
     for x in range(3):
@@ -83,7 +86,8 @@ def gameOver(board):
         print('Player 0 - wins')
         return True
 
-#1.6 (+ 2.3)
+
+# 1.6 (+ 2.3)
 def game(board, fileUrl):
     movecount = 0
     while True:
@@ -91,6 +95,7 @@ def game(board, fileUrl):
         loadChoose = input()
         if loadChoose == '1':
             board = loadBoard(fileUrl)
+            showBoard(board)
             break
         elif loadChoose == '2':
             break
@@ -101,7 +106,7 @@ def game(board, fileUrl):
     while True:
         if movecount % 2 == 0:
             print('Round', movecount + 1, '- Player X move.\n'
-                  'Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner '
+                                          'Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner '
                                           'or write "save" to save the game')
             try:
                 playerInput = input()
@@ -116,10 +121,10 @@ def game(board, fileUrl):
                         movecount += 1
             except:
                 print('Check your input and try again')
-                
+
         elif movecount % 2 == 1:
             print('Round', movecount + 1, '- Player 0 move.\n'
-                  'Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner '
+                                          'Input coords in format N M. Where N - row and M - column. Example: "1 3" for top right corner '
                                           'or write "save" to save the game')
             try:
                 playerInput = input()
@@ -138,7 +143,8 @@ def game(board, fileUrl):
             print('Game over!')
             return
 
-#2.1
+
+# 2.1
 
 def saveBoard(board, fileUrl):
     f = open(fileUrl, 'w')
@@ -147,7 +153,7 @@ def saveBoard(board, fileUrl):
     f.close()
 
 
-#2.2
+# 2.2
 def loadBoard(fileUrl):
     f = open(fileUrl, 'r')
     board = []
@@ -162,7 +168,6 @@ def loadBoard(fileUrl):
             board2[x][y] = board2[x][y][1:-1]
 
     return board2
-
 
 
 while True:
